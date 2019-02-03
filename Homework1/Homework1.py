@@ -27,7 +27,7 @@ shakespeare = shakespearePattern.sub("", shakespeare)
 print('\n-------\nTokenizing Milton\n-------')
 
 miltonToken = re.sub('\'', '', milton)
-miltonToken = nltk.word_tokenize(re.sub('\W+',' ', miltonToken))
+miltonToken = nltk.word_tokenize(re.sub('\W+', ' ', miltonToken))
 miltonNum = len(miltonToken)
 miltonSet = set(miltonToken)
 print('Milton token count: {}'.format(miltonNum))
@@ -37,7 +37,7 @@ print('Milton token sample:\n{}'.format(miltonToken[:100]))
 print('\n-------\nTokenizing Shakespeare\n-------')
 
 shakespeareToken = re.sub('\'', '', shakespeare)
-shakespeareToken = nltk.word_tokenize(re.sub('\W+',' ', shakespeareToken))
+shakespeareToken = nltk.word_tokenize(re.sub('\W+', ' ', shakespeareToken))
 shakespeareNum = len(shakespeareToken)
 shakespeareSet = set(shakespeareToken)
 print('Shakespeare token count: {}'.format(shakespeareNum))
@@ -63,14 +63,14 @@ shakespeareStopped = [word for word in shakespeareToken if word not in stopWords
 print('\n-------\nTop 50 words in Milton corpus by frequency\n-------')
 miltonFdist = nltk.FreqDist(miltonStopped)
 miltonTop50 = miltonFdist.most_common(50)
-miltonNorm = [(word,round(freq/miltonNum, 5)) for (word, freq) in miltonTop50]
+miltonNorm = [(word, round(freq/miltonNum, 5)) for (word, freq) in miltonTop50]
 for pair in miltonNorm:
     print(pair)
 
 print('\n-------\nTop 50 words in Shakespeare corpus by frequency\n-------')
 shakespeareFdist = nltk.FreqDist(shakespeareStopped)
 shakespeareTop50 = shakespeareFdist.most_common(50)
-shakespeareNorm = [(word,round(freq/shakespeareNum,5)) for (word,freq) in shakespeareTop50]
+shakespeareNorm = [(word, round(freq/shakespeareNum, 5)) for (word, freq) in shakespeareTop50]
 for pair in shakespeareNorm:
     print(pair)
 
@@ -81,7 +81,7 @@ miltonScored = miltonFinder.score_ngrams(bigramMeasures.raw_freq)
 for bigram in miltonScored[:50]:
     print(bigram)
 
-print('\n-------\nTop bigrams Milton corpus by PMI\n-------')
+print('\n-------\nTop bigrams Milton corpus by MI\n-------')
 miltonFinder.apply_freq_filter(5)
 miltonScored = miltonFinder.score_ngrams(bigramMeasures.pmi)
 for bigram in miltonScored[:50]:
@@ -93,7 +93,7 @@ miltonScored = miltonFinder.score_ngrams(trigramMeasures.raw_freq)
 for trigram in miltonScored[:50]:
     print(trigram)
 
-print('\n-------\nTop trigrams Milton corpus by PMI\n-------')
+print('\n-------\nTop trigrams Milton corpus by MI\n-------')
 miltonFinder.apply_freq_filter(3)
 miltonScored = miltonFinder.score_ngrams(trigramMeasures.pmi)
 for trigram in miltonScored[:50]:
@@ -106,7 +106,7 @@ shakespeareScored = shakespeareFinder.score_ngrams(bigramMeasures.raw_freq)
 for bigram in shakespeareScored[:50]:
     print(bigram)
 
-print('\n-------\nTop bigrams Shakespeare corpus by PMI\n-------')
+print('\n-------\nTop bigrams Shakespeare corpus by MI\n-------')
 shakespeareFinder.apply_freq_filter(5)
 shakespeareScored = shakespeareFinder.score_ngrams(bigramMeasures.pmi)
 for bigram in shakespeareScored[:50]:
@@ -118,7 +118,7 @@ shakespeareScored = shakespeareFinder.score_ngrams(trigramMeasures.raw_freq)
 for trigram in shakespeareScored[:50]:
     print(trigram)
 
-print('\n-------\nTop trigrams Shakespeare corpus by PMI\n-------')
+print('\n-------\nTop trigrams Shakespeare corpus by MI\n-------')
 shakespeareFinder.apply_freq_filter(3)
 shakespeareScored = shakespeareFinder.score_ngrams(trigramMeasures.pmi)
 for trigram in shakespeareScored[:50]:
